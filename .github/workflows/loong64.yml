@@ -56,6 +56,30 @@ jobs:
         run: |
           apt update
           apt install -y git make golang file
+      - name: Install Docker CLI
+        run: |
+          apt remove $(dpkg --get-selections docker.io docker-compose docker-doc podman-docker containerd runc | cut -f1)
+          apt update
+          apt install ca-certificates curl
+          install -m 0755 -d /etc/apt/keyrings
+          curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+          chmod a+r /etc/apt/keyrings/docker.asc
+          # Add the repository to Apt sources:
+          tee /etc/apt/sources.list.d/docker.sources <<EOF
+          Types: deb
+          URIs: https://download.docker.com/linux/debian
+          Suites: $(. /etc/os-release && echo "$VERSION_CODENAME")
+          Components: stable
+          Architectures: $(dpkg --print-architecture)
+          Signed-By: /etc/apt/keyrings/docker.asc
+          EOF
+          apt update
+          apt install -y docker-ce-cli
+      - name: Verify Docker installation
+        run: |
+          ls -la /run/docker.sock 2>/dev/null || echo "/run/docker.sock not found"
+          echo "DOCKER_HOST=$DOCKER_HOST"
+          docker info
       - name: Apply patches
         working-directory: etcd
         run: git apply ../*.patch
@@ -83,4 +107,6 @@ jobs:
           TAG: ${{ env.ETCD_TAG }}
           BINARYDIR: ./bin
         run: |
+          docker images
           ./scripts/build-docker.sh $ETCD_BRANCH
+          docker images
