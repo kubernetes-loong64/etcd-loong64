@@ -51,7 +51,7 @@ jobs:
       - name: Install build tools
         run: |
           apt update
-          apt install -y git
+          apt install -y git make
       - name: Apply patches
         working-directory: etcd
         run: git apply ../*.patch
