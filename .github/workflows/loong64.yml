@@ -65,3 +65,8 @@ jobs:
         working-directory: etcd
         run: |
           find bin -type f | xargs sha256sum
+      - name: Inspect binary file types
+        working-directory: etcd
+        run: |
+          echo "=== bin ==="
+          file bin/*
