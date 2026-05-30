@@ -1,0 +1,11 @@
+diff --git a/Dockerfile b/Dockerfile
+index 16724fa40..cef92fcf3 100644
+--- a/Dockerfile
++++ b/Dockerfile
+@@ -1,5 +1,5 @@
+ ARG ARCH=amd64
+-FROM --platform=linux/${ARCH} gcr.io/distroless/static-debian12@sha256:3f2b64ef97bd285e36132c684e6b2ae8f2723293d09aae046196cca64251acac
++FROM --platform=linux/${ARCH} ghcr.io/loong64/debian:trixie-slim
+ 
+ ADD etcd /usr/local/bin/
+ ADD etcdctl /usr/local/bin/
