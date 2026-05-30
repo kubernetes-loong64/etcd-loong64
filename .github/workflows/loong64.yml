@@ -54,7 +54,7 @@ jobs:
       - name: Install build tools
         run: |
           apt update
-          apt install -y git make golang
+          apt install -y git make golang file
       - name: Apply patches
         working-directory: etcd
         run: git apply ../*.patch
