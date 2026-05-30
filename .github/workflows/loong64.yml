@@ -39,11 +39,6 @@ jobs:
           ETCD_BRANCH=$(echo $REF | awk -F'/' '{print $2}')
           echo "ETCD_BRANCH=$ETCD_BRANCH"
           echo "ETCD_BRANCH=$ETCD_BRANCH" >> ${GITHUB_ENV}
-      - name: Extract CPU architecture
-        run: |
-          KUBE_CPU_ARCH="${KUBE_BUILD_PLATFORMS##*/}"
-          echo "KUBE_CPU_ARCH=$KUBE_CPU_ARCH"
-          echo "KUBE_CPU_ARCH=$KUBE_CPU_ARCH" >> ${GITHUB_ENV}
       - name: Clone etcd
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
