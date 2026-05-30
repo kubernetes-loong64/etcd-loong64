@@ -48,6 +48,10 @@ jobs:
           path: etcd
       - name: ls
         run: ls -lah
+      - name: Install build tools
+        run: |
+          apt update
+          apt install -y git
       - name: Apply patches
         working-directory: etcd
         run: git apply ../*.patch
