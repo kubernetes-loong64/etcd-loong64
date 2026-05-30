@@ -18,6 +18,7 @@ jobs:
     env:
       GOOS: linux
       GOARCH: loong64
+      ETCD_TAG: ${{ vars.ETCD_TAG || 'xuxiaoweicomcn/etcd-loong64' }}
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -76,3 +77,10 @@ jobs:
           name: etcd-loong64-binaries
           path: |
             etcd/bin/*
+      - name: Build Docker image
+        working-directory: etcd
+        env:
+          TAG: ${{ env.ETCD_TAG }}
+          BINARYDIR: ./bin
+        run: |
+          ./scripts/build-docker.sh $ETCD_BRANCH
