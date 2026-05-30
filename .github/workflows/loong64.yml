@@ -55,7 +55,7 @@ jobs:
       - name: Install build tools
         run: |
           apt update
-          apt install -y git make golang file
+          apt install -y git make golang file jq
       - name: Install Docker CLI
         run: |
           apt remove $(dpkg --get-selections docker.io docker-compose docker-doc podman-docker containerd runc | cut -f1)
