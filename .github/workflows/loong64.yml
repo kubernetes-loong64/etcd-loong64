@@ -61,3 +61,7 @@ jobs:
       - name: Build etcd
         working-directory: etcd
         run: make
+      - name: Print binary SHA-256 checksums
+        working-directory: etcd
+        run: |
+          find bin -type f | xargs sha256sum
