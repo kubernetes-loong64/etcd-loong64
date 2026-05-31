@@ -2,6 +2,8 @@
 
 <p align="center"><a href="README.md">English</a> | <a href="README-zh.md">中文</a></p>
 
+<p align="center"><img src="https://img.shields.io/badge/etcd%20LoongArch64%20%E9%BE%99%E8%8A%AF%E6%9E%B6%E6%9E%84%E5%8F%91%E8%A1%8C%E7%89%88-blue?logo=etcd&logoColor=white" alt="etcd LoongArch64 龙芯架构发行版"></p>
+
 Build [etcd](https://github.com/etcd-io/etcd) binaries and Docker images for the **LoongArch64 (loong64)** architecture via CI/CD.
 
 ## How it works
