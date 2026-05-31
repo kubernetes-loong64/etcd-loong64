@@ -1,6 +1,6 @@
 # etcd for LoongArch64
 
-[English](README.md) | [中文](README-zh.md)
+<p align="center"><a href="README.md">English</a> | <a href="README-zh.md">中文</a></p>
 
 Build [etcd](https://github.com/etcd-io/etcd) binaries and Docker images for the **LoongArch64 (loong64)** architecture via CI/CD.
 
@@ -10,7 +10,7 @@ A GitHub Actions workflow clones the specified etcd version, applies a patch to 
 
 ## Branch naming
 
-Create a branch named `loong64/<etcd-version>` (e.g. `loong64/v3.6.8`) to trigger a build.
+Push a branch named `loong64/<etcd-version>` (e.g. `loong64/v3.6.8`) to trigger a build.
 
 ## [Release](https://github.com/xuxiaowei-com-cn/etcd-loong64/releases)
 

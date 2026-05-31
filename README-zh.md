@@ -1,6 +1,6 @@
 # etcd for LoongArch64
 
-[English](README.md) | [中文](README-zh.md)
+<p align="center"><a href="README.md">English</a> | <a href="README-zh.md">中文</a></p>
 
 通过 CI/CD 构建 [etcd](https://github.com/etcd-io/etcd) 的 **LoongArch64 (loong64)** 架构二进制文件和 Docker 镜像。
 
@@ -10,7 +10,7 @@ GitHub Actions 工作流克隆指定的 etcd 版本，打上 loong64 适配补�
 
 ## 分支命名
 
-创建 `loong64/<etcd 版本>` 格式的分支（如 `loong64/v3.6.8`）即可触发构建。
+推送 `loong64/<etcd 版本>` 格式的分支（如 `loong64/v3.6.8`）即可触发构建。
 
 ## [发布](https://github.com/xuxiaowei-com-cn/etcd-loong64/releases)
 
