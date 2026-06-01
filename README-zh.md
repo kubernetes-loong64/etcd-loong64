@@ -10,6 +10,8 @@
 
 GitHub Actions 工作流克隆指定的 etcd 版本，打上 loong64 适配补丁（将基础镜像替换为 `ghcr.io/loong64/debian:trixie-slim`），在 Debian 13 容器中使用 `GOOS=linux GOARCH=loong64` 交叉编译。目标平台：`linux/loong64`。
 
+关于 Debian 13 容器选型的理由，详见 [Discussion #6 — 为什么使用 container: debian:13？](https://github.com/orgs/kubernetes-loong64/discussions/6)。
+
 ## 分支命名
 
 推送 `loong64/<etcd 版本>` 格式的分支（如 `loong64/v3.6.8`）即可触发构建。

@@ -10,6 +10,8 @@ Build [etcd](https://github.com/etcd-io/etcd) binaries and Docker images for the
 
 A GitHub Actions workflow clones the specified etcd version, applies a patch to enable loong64 support (switches base image to `ghcr.io/loong64/debian:trixie-slim`), and cross-compiles with `GOOS=linux GOARCH=loong64` in a Debian 13 container. Target platform: `linux/loong64`.
 
+See [Discussion #6 — Why Use container: debian:13?](https://github.com/orgs/kubernetes-loong64/discussions/6) for the rationale behind the Debian 13 container choice.
+
 ## Branch naming
 
 Push a branch named `loong64/<etcd-version>` (e.g. `loong64/v3.6.8`) to trigger a build.
