@@ -198,11 +198,6 @@ jobs:
             echo "Signed: $file"
             gpg --verify "$file".asc "$file"
           done
-      - name: Package signatures
-        run: |
-          mkdir signatures
-          find loong64-artifacts -name '*.asc' -exec mv {} signatures \;
-          find signatures -name '*.asc' | tar -czf loong64-artifacts/signatures.tar.gz -T -
       - name: List Release files
         run: find loong64-artifacts -type f
       - name: Create Release
