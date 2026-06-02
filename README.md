@@ -4,8 +4,8 @@
 
 <p align="center"><img src="https://img.shields.io/badge/etcd%20LoongArch64%20%E9%BE%99%E8%8A%AF%E6%9E%B6%E6%9E%84%E5%8F%91%E8%A1%8C%E7%89%88-blue?logo=etcd&logoColor=white" alt="etcd LoongArch64 龙芯架构发行版"></p>
 
-Build [etcd](https://github.com/etcd-io/etcd) binaries and Docker images for the **LoongArch64 (loong64)** architecture
-via CI/CD.
+Build [etcd](https://github.com/etcd-io/etcd) binaries and Docker images for the **LoongArch64 (loong64)**
+architecture via CI/CD.
 
 ## How it works
 
@@ -18,14 +18,18 @@ rationale behind the Debian 13 container choice.
 
 ## Branch naming
 
-Push a branch named `loong64-<etcd-version>` (e.g. `loong64-v3.6.8`) to trigger a build.
+Push a branch named `loong64-<etcd-version>` (e.g. `loong64-v3.6.8`) to trigger a build. Append `+<build>`
+(e.g. `loong64-v3.6.8+0`) to include build metadata.
 
-## [Release](https://github.com/xuxiaowei-com-cn/etcd-loong64/releases)
+## [Release](https://github.com/kubernetes-loong64/etcd-loong64/releases)
 
-Push a tag matching `release-loong64-<etcd-version>+<sequence>` (e.g. `release-loong64-v3.6.8+1-alpha.1`) to publish a
-GitHub Release with the built binaries and Docker images.
+Push a tag matching `release-loong64-<etcd-version>` (e.g. `release-loong64-v3.6.8+0`) to publish
+a GitHub Release with the built binaries and Docker images.
 
-The suffix in the sequence indicates the release stage:
+The `+<build>` suffix provides build metadata (e.g. `+0`, `+1-alpha.1`). It is stripped for the git clone
+ref and replaced with `-` for the Docker tag.
+
+The suffix in the build metadata indicates the release stage:
 
 | Suffix  | Stage         |
 |---------|---------------|
@@ -52,16 +56,18 @@ Docker images are pushed to:
 - [![kubernetesloong64/etcd](https://img.shields.io/docker/v/kubernetesloong64/etcd?sort=semver&arch=loong64&logo=docker&label=kubernetesloong64%2Fetcd)](https://hub.docker.com/r/kubernetesloong64/etcd/tags)
 - [![kubernetesloong64/etcd-loong64](https://img.shields.io/docker/v/kubernetesloong64/etcd-loong64?sort=semver&arch=loong64&logo=docker&label=kubernetesloong64%2Fetcd-loong64)](https://hub.docker.com/r/kubernetesloong64/etcd-loong64/tags)
 
-| Image                                  | Description            |
-|----------------------------------------|------------------------|
-| `kubernetesloong64/etcd-loong64:<tag>` | Image with loong64 tag |
-| `kubernetesloong64/etcd:<tag>`         | Standard image tag     |
+| Image                                  | Description                                      |
+|----------------------------------------|--------------------------------------------------|
+| `kubernetesloong64/etcd:<tag>`         | K8s-compatible tag (stable only, always with -0) |
+| `kubernetesloong64/etcd:<tag>`         | Standard tag with build metadata                 |
+| `kubernetesloong64/etcd-loong64:<tag>` | Tag with loong64 arch suffix                     |
 
-Example for a release:
+Example for `release-loong64-v3.6.8+0`:
 
 ```
-kubernetesloong64/etcd:v3.6.8-0
-kubernetesloong64/etcd-loong64:v3.6.8-0-loong64
+kubernetesloong64/etcd:v3.6.8-0                 # K8s-compatible tag (stable only, always with -0)
+kubernetesloong64/etcd:v3.6.8-0                 # Standard tag with build metadata
+kubernetesloong64/etcd-loong64:v3.6.8-0-loong64 # Tag with loong64 arch suffix
 ```
 
 ## Verify releases
