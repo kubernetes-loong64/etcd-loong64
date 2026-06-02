@@ -2,12 +2,12 @@ name: loong64
 on:
   push:
     branches:
-      - loong64/*
+      - loong64-*
     tags:
-      - release-loong64/*/*
+      - release-loong64-*
   pull_request:
     branches:
-      - loong64/*
+      - loong64-*
 
 jobs:
   build:
@@ -36,9 +36,15 @@ jobs:
           else
             REF=${{ github.ref_name }}
           fi
-          ETCD_BRANCH=$(echo $REF | awk -F'/' '{print $2}')
+          echo "REF=$REF"
+          PROJECT_ETCD_VERSION=$(echo $REF | awk -F'loong64-' '{print $2}')
+          echo "PROJECT_ETCD_VERSION=$PROJECT_ETCD_VERSION"
+          ETCD_BRANCH=$(echo $PROJECT_ETCD_VERSION | sed 's/+.*//')
           echo "ETCD_BRANCH=$ETCD_BRANCH"
           echo "ETCD_BRANCH=$ETCD_BRANCH" >> ${GITHUB_ENV}
+          ETCD_DOCKER_TAG=$(echo $PROJECT_ETCD_VERSION | sed 's/+/-/g')
+          echo "ETCD_DOCKER_TAG=$ETCD_DOCKER_TAG"
+          echo "ETCD_DOCKER_TAG=$ETCD_DOCKER_TAG" >> ${GITHUB_ENV}
       - name: Clone etcd
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
@@ -103,7 +109,7 @@ jobs:
           BINARYDIR: ./bin
         run: |
           docker images
-          ./scripts/build-docker.sh $ETCD_BRANCH
+          ./scripts/build-docker.sh $ETCD_DOCKER_TAG
           docker images
           docker save -o etcd-loong64.tar $(docker images ${{ env.ETCD_TAG }} --format "{{.ID}}")
           ls -lha
