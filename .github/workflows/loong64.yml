@@ -117,7 +117,7 @@ jobs:
           docker images
           ./scripts/build-docker.sh $ETCD_DOCKER_TAG
           docker images
-          docker save -o etcd-loong64.tar $(docker images ${{ env.ETCD_IMAGE }} --format "{{.ID}}")
+          docker save -o etcd-loong64.tar ${{ env.ETCD_IMAGE }}:$ETCD_DOCKER_TAG
           ls -lha
           tar -xOf etcd-loong64.tar index.json || tar -xOf etcd-loong64.tar manifest.json | jq
       - name: Upload container images
