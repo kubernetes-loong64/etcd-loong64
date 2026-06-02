@@ -31,18 +31,18 @@ GitHub Actions 工作流克隆指定的 etcd 版本，打上 loong64 适配补�
 
 ## 验证发布
 
-发布文件使用 GPG 签名。从 [keys.openpgp.org](https://keys.openpgp.org) 下载公钥 [F3693AB74BBA0D84C227AB34F3A4B5061568FC57](https://keys.openpgp.org/debug?q=F3693AB74BBA0D84C227AB34F3A4B5061568FC57)：
+- 发布文件使用 GPG 签名。
+- 从 [keys.openpgp.org](https://keys.openpgp.org) 下载公钥。
+- [FCF8724722CCBF9F51B1FBE376532BE7E3013105](https://keys.openpgp.org/debug?q=FCF8724722CCBF9F51B1FBE376532BE7E3013105)
 
 ```shell
-gpg --keyserver keys.openpgp.org --recv-keys F3693AB74BBA0D84C227AB34F3A4B5061568FC57
-echo "F3693AB74BBA0D84C227AB34F3A4B5061568FC57:6:" | gpg --import-ownertrust
+gpg --keyserver keys.openpgp.org --recv-keys FCF8724722CCBF9F51B1FBE376532BE7E3013105
+echo "FCF8724722CCBF9F51B1FBE376532BE7E3013105:6:" | gpg --import-ownertrust
 ```
 
-每个发布包含一个 `signatures.tar.gz`，内含所有构建产物的分离签名。验证步骤：
+每个发布产物都有对应的 `.asc` 分离签名。从发布页面下载文件和对应的 `.asc` 签名后，验证：
 
 ```shell
-# 从发布页面下载 signatures.tar.gz，然后：
-tar -xzf signatures.tar.gz --strip-components=1
 gpg --verify <文件>.asc <文件>
 ```
 
