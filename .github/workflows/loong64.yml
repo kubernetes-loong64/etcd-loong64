@@ -126,7 +126,10 @@ jobs:
           echo "=== Image tarball ==="
           ls -lha etcd-loong64.tar
           echo "=== Manifest ==="
-          tar -xOf etcd-loong64.tar repositories || tar -xOf etcd-loong64.tar manifest.json | jq
+          echo "--- repositories ---"
+          tar -xOf etcd-loong64.tar repositories
+          echo "--- manifest.json ---"
+          tar -xOf etcd-loong64.tar manifest.json | jq
       - name: Upload container images
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
