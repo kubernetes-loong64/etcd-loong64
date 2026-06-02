@@ -14,11 +14,11 @@ See [Discussion #6 — Why Use container: debian:13?](https://github.com/orgs/ku
 
 ## Branch naming
 
-Push a branch named `loong64/<etcd-version>` (e.g. `loong64/v3.6.8`) to trigger a build.
+Push a branch named `loong64-<etcd-version>` (e.g. `loong64-v3.6.8`) to trigger a build.
 
 ## [Release](https://github.com/xuxiaowei-com-cn/etcd-loong64/releases)
 
-Push a tag matching `release-loong64/<etcd-version>/<sequence>` (e.g. `release-loong64/v3.6.8/1-alpha.1`) to publish a GitHub Release with the built binaries and Docker images.
+Push a tag matching `release-loong64-<etcd-version>+<sequence>` (e.g. `release-loong64-v3.6.8+1-alpha.1`) to publish a GitHub Release with the built binaries and Docker images.
 
 The suffix in the sequence indicates the release stage:
 
