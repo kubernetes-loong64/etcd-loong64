@@ -47,10 +47,10 @@ jobs:
           ETCD_BRANCH=$(echo $PROJECT_ETCD_VERSION | sed 's/+.*//')
           echo "ETCD_BRANCH=$ETCD_BRANCH"
           echo "ETCD_BRANCH=$ETCD_BRANCH" >> ${GITHUB_ENV}
-          ETCD_DOCKER_TAG=$(echo $PROJECT_ETCD_VERSION | sed 's/+/-/g')
-          echo "ETCD_DOCKER_TAG=$ETCD_DOCKER_TAG"
-          echo "ETCD_DOCKER_TAG=$ETCD_DOCKER_TAG" >> ${GITHUB_ENV}
-          echo "DOCKER_TAG=$ETCD_DOCKER_TAG" >> ${GITHUB_OUTPUT}
+          DOCKER_TAG=$(echo $PROJECT_ETCD_VERSION | sed 's/+/-/g')
+          echo "DOCKER_TAG=$DOCKER_TAG"
+          echo "DOCKER_TAG=$DOCKER_TAG" >> ${GITHUB_ENV}
+          echo "DOCKER_TAG=$DOCKER_TAG" >> ${GITHUB_OUTPUT}
       - name: Clone etcd
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
@@ -113,11 +113,12 @@ jobs:
         env:
           TAG: ${{ env.ETCD_IMAGE }}
           BINARYDIR: ./bin
+          BASE_IMAGE: ghcr.io/loong64/debian:trixie-slim
         run: |
-          echo "=== Docker tag arg: $ETCD_DOCKER_TAG ==="
+          echo "=== Docker tag arg: $DOCKER_TAG ==="
           echo "=== Before build ==="
           docker images
-          ./scripts/build-docker.sh $ETCD_DOCKER_TAG
+          ./scripts/build-docker.sh $DOCKER_TAG
           echo "=== After build ==="
           docker images
           IMAGE_REF=$(docker images ${{ env.ETCD_IMAGE }} --format "{{.Repository}}:{{.Tag}}")
