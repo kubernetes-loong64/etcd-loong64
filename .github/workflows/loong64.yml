@@ -199,17 +199,18 @@ jobs:
             gpg --verify "$file".asc "$file"
           done
       - name: Generate release body
+        env:
+          BASE_URL: https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}
         run: |
-          BASE_URL="https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}"
-          cat > release-body.md <<BODYEOF
+          cat > release-body.md <<'BODYEOF'
           ## Artifacts
 
           | File               | Download                                       |
           |--------------------|------------------------------------------------|
-          | `etcd`             | [etcd]($BASE_URL/etcd)                         |
-          | `etcdctl`          | [etcdctl]($BASE_URL/etcdctl)                   |
-          | `etcdutl`          | [etcdutl]($BASE_URL/etcdutl)                   |
-          | `etcd-loong64.tar` | [etcd-loong64.tar]($BASE_URL/etcd-loong64.tar) |
+          | `etcd`             | [etcd](${{ env.BASE_URL }}/etcd)                         |
+          | `etcdctl`          | [etcdctl](${{ env.BASE_URL }}/etcdctl)                   |
+          | `etcdutl`          | [etcdutl](${{ env.BASE_URL }}/etcdutl)                   |
+          | `etcd-loong64.tar` | [etcd-loong64.tar](${{ env.BASE_URL }}/etcd-loong64.tar) |
 
           Each file has a corresponding `.asc` detached GPG signature.
 
@@ -223,7 +224,7 @@ jobs:
           Download and load the image:
 
           ```shell
-          curl -LO $BASE_URL/etcd-loong64.tar
+          curl -LO ${{ env.BASE_URL }}/etcd-loong64.tar
           docker load -i etcd-loong64.tar
           ```
 
