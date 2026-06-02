@@ -1,7 +1,16 @@
 diff --git a/scripts/build-docker.sh b/scripts/build-docker.sh
-index 6f86fb46a..476c2591d 100755
+index 6f86fb46a..1f40a6d19 100755
 --- a/scripts/build-docker.sh
 +++ b/scripts/build-docker.sh
+@@ -13,7 +13,7 @@ if [ -z "$VERSION" ]; then
+   exit 1
+ fi
+ 
+-ARCH=$(go env GOARCH)
++ARCH=${ARCH:-$(go env GOARCH)}
+ VERSION="${VERSION}-${ARCH}"
+ DOCKERFILE="Dockerfile"
+ 
 @@ -40,11 +40,17 @@ cp "${BINARYDIR}"/etcd "${BINARYDIR}"/etcdctl "${BINARYDIR}"/etcdutl "${IMAGEDIR
  
  cat ./"${DOCKERFILE}" > "${IMAGEDIR}"/Dockerfile
