@@ -1,8 +1,20 @@
+diff --git a/Dockerfile b/Dockerfile
+index 16724fa40..48f4c0565 100644
+--- a/Dockerfile
++++ b/Dockerfile
+@@ -1,5 +1,6 @@
+ ARG ARCH=amd64
+-FROM --platform=linux/${ARCH} gcr.io/distroless/static-debian12@sha256:3f2b64ef97bd285e36132c684e6b2ae8f2723293d09aae046196cca64251acac
++ARG BASE_IMAGE=gcr.io/distroless/static-debian12@sha256:3f2b64ef97bd285e36132c684e6b2ae8f2723293d09aae046196cca64251acac
++FROM --platform=linux/${ARCH} ${BASE_IMAGE}
+ 
+ ADD etcd /usr/local/bin/
+ ADD etcdctl /usr/local/bin/
 diff --git a/scripts/build-docker.sh b/scripts/build-docker.sh
-index 6f86fb46a..1f40a6d19 100755
+index 6f86fb46a..75f43aa88 100755
 --- a/scripts/build-docker.sh
 +++ b/scripts/build-docker.sh
-@@ -13,7 +13,7 @@ if [ -z "$VERSION" ]; then
+@@ -13,12 +13,12 @@ if [ -z "$VERSION" ]; then
    exit 1
  fi
  
@@ -11,6 +23,12 @@ index 6f86fb46a..1f40a6d19 100755
  VERSION="${VERSION}-${ARCH}"
  DOCKERFILE="Dockerfile"
  
+ if [ -z "${BINARYDIR:-}" ]; then
+-  RELEASE="etcd-${1}"-$(go env GOOS)-${ARCH}
++  RELEASE="etcd-${1}"-${GOOS:-$(go env GOOS)}-${ARCH}
+   BINARYDIR="${RELEASE}"
+   TARFILE="${RELEASE}.tar.gz"
+   TARURL="https://github.com/etcd-io/etcd/releases/download/${1}/${TARFILE}"
 @@ -40,11 +40,17 @@ cp "${BINARYDIR}"/etcd "${BINARYDIR}"/etcdctl "${BINARYDIR}"/etcdutl "${IMAGEDIR
  
  cat ./"${DOCKERFILE}" > "${IMAGEDIR}"/Dockerfile
