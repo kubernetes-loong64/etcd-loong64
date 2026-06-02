@@ -113,6 +113,7 @@ jobs:
         env:
           TAG: ${{ env.ETCD_IMAGE }}
           BINARYDIR: ./bin
+          ARCH: loong64
           BASE_IMAGE: ghcr.io/loong64/debian:trixie-slim
         run: |
           echo "=== Docker tag arg: $DOCKER_TAG ==="
