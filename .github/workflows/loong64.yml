@@ -171,7 +171,7 @@ jobs:
           docker load -i loong64-artifacts/etcd-loong64.tar
           echo "=== After load ==="
           docker images
-          IMAGE_REF=${{ env.ETCD_IMAGE }}:${{ env.DOCKER_TAG }}
+          IMAGE_REF=$(docker images ${{ env.ETCD_IMAGE }} --format "{{.Repository}}:{{.Tag}}")
           echo "=== Pushing $IMAGE_REF ==="
           docker push $IMAGE_REF
           IMAGE_BASE=${{ env.ETCD_IMAGE }}
