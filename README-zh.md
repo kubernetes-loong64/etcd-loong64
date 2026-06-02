@@ -8,9 +8,11 @@
 
 ## 工作原理
 
-GitHub Actions 工作流克隆指定的 etcd 版本，打上 loong64 适配补丁（将基础镜像替换为 `ghcr.io/loong64/debian:trixie-slim`），在 Debian 13 容器中使用 `GOOS=linux GOARCH=loong64` 交叉编译。目标平台：`linux/loong64`。
+GitHub Actions 工作流克隆指定的 etcd 版本，打上 loong64 适配补丁（将基础镜像替换为 `ghcr.io/loong64/debian:trixie-slim`），在
+Debian 13 容器中使用 `GOOS=linux GOARCH=loong64` 交叉编译。目标平台：`linux/loong64`。
 
-关于 Debian 13 容器选型的理由，详见 [Discussion #6 — 为什么使用 container: debian:13？](https://github.com/orgs/kubernetes-loong64/discussions/6)。
+关于 Debian 13
+容器选型的理由，详见 [Discussion #6 — 为什么使用 container: debian:13？](https://github.com/orgs/kubernetes-loong64/discussions/6)。
 
 ## 分支命名
 
@@ -18,7 +20,8 @@ GitHub Actions 工作流克隆指定的 etcd 版本，打上 loong64 适配补�
 
 ## [发布](https://github.com/xuxiaowei-com-cn/etcd-loong64/releases)
 
-推送 `release-loong64-<etcd 版本>+<序号>` 格式的标签（如 `release-loong64-v3.6.8+1-alpha.1`）即可自动创建 GitHub Release 并上传构建产物和 Docker 镜像。
+推送 `release-loong64-<etcd 版本>+<序号>` 格式的标签（如 `release-loong64-v3.6.8+1-alpha.1`）即可自动创建 GitHub Release
+并上传构建产物和 Docker 镜像。
 
 后缀表示发布阶段：
 
@@ -28,6 +31,33 @@ GitHub Actions 工作流克隆指定的 etcd 版本，打上 loong64 适配补�
 | `beta`  | 公测版  |
 | `rc`    | 预发布版 |
 | （无后缀）   | 正式版  |
+
+## 发布产物
+
+每个发布包含以下文件：
+
+| 文件                 | 描述            |
+|--------------------|---------------|
+| `etcd`             | etcd 服务端二进制文件 |
+| `etcdctl`          | etcd 命令行客户端   |
+| `etcdutl`          | etcd 实用工具     |
+| `etcd-loong64.tar` | Docker 镜像压缩包  |
+
+每个文件都有对应的 `.asc` 分离 GPG 签名。
+
+Docker 镜像推送地址：
+
+| 镜像                                     | 描述           |
+|----------------------------------------|--------------|
+| `kubernetesloong64/etcd-loong64:<tag>` | 含 loong64 标签 |
+| `kubernetesloong64/etcd:<tag>`         | 标准镜像标签       |
+
+示例（某次发布）：
+
+```
+kubernetesloong64/etcd:v3.6.8-0
+kubernetesloong64/etcd-loong64:v3.6.8-0-loong64
+```
 
 ## 验证发布
 
