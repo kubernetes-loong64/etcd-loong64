@@ -47,8 +47,8 @@ Debian 13 容器中使用 `GOOS=linux GOARCH=loong64` 交叉编译。目标平�
 
 Docker 镜像推送地址：
 
-- [![kubernetesloong64/etcd](https://img.shields.io/docker/v/kubernetesloong64/etcd?logo=docker&label=kubernetesloong64%2Fetcd)](https://hub.docker.com/r/kubernetesloong64/etcd/tags)
-- [![kubernetesloong64/etcd-loong64](https://img.shields.io/docker/v/kubernetesloong64/etcd-loong64?logo=docker&label=kubernetesloong64%2Fetcd-loong64)](https://hub.docker.com/r/kubernetesloong64/etcd-loong64/tags)
+- [![kubernetesloong64/etcd](https://img.shields.io/docker/v/kubernetesloong64/etcd?sort=semver&arch=loong64&logo=docker&label=kubernetesloong64%2Fetcd)](https://hub.docker.com/r/kubernetesloong64/etcd/tags)
+- [![kubernetesloong64/etcd-loong64](https://img.shields.io/docker/v/kubernetesloong64/etcd-loong64?sort=semver&arch=loong64&logo=docker&label=kubernetesloong64%2Fetcd-loong64)](https://hub.docker.com/r/kubernetesloong64/etcd-loong64/tags)
 
 | 镜像                                     | 描述           |
 |----------------------------------------|--------------|

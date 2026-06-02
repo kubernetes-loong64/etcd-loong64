@@ -49,8 +49,8 @@ Each file has a corresponding `.asc` detached GPG signature.
 
 Docker images are pushed to:
 
-- [![kubernetesloong64/etcd](https://img.shields.io/docker/v/kubernetesloong64/etcd?logo=docker&label=kubernetesloong64%2Fetcd)](https://hub.docker.com/r/kubernetesloong64/etcd/tags)
-- [![kubernetesloong64/etcd-loong64](https://img.shields.io/docker/v/kubernetesloong64/etcd-loong64?logo=docker&label=kubernetesloong64%2Fetcd-loong64)](https://hub.docker.com/r/kubernetesloong64/etcd-loong64/tags)
+- [![kubernetesloong64/etcd](https://img.shields.io/docker/v/kubernetesloong64/etcd?sort=semver&arch=loong64&logo=docker&label=kubernetesloong64%2Fetcd)](https://hub.docker.com/r/kubernetesloong64/etcd/tags)
+- [![kubernetesloong64/etcd-loong64](https://img.shields.io/docker/v/kubernetesloong64/etcd-loong64?sort=semver&arch=loong64&logo=docker&label=kubernetesloong64%2Fetcd-loong64)](https://hub.docker.com/r/kubernetesloong64/etcd-loong64/tags)
 
 | Image                                  | Description            |
 |----------------------------------------|------------------------|
