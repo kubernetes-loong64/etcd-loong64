@@ -132,6 +132,8 @@ jobs:
           tar -xOf etcd-loong64.tar repositories
           echo "--- manifest.json ---"
           tar -xOf etcd-loong64.tar manifest.json | jq
+          echo "--- config ---"
+          tar -xOf etcd-loong64.tar $(tar -xOf etcd-loong64.tar manifest.json | jq -r '.[0].Config') | jq '{architecture, os}'
       - name: Upload container images
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
