@@ -18,7 +18,7 @@ jobs:
     env:
       GOOS: linux
       GOARCH: loong64
-      ETCD_TAG: ${{ vars.ETCD_TAG || 'xuxiaoweicomcn/etcd-loong64' }}
+      ETCD_IMAGE: ${{ vars.ETCD_IMAGE || 'kubernetesloong64/etcd-loong64' }}
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -105,13 +105,13 @@ jobs:
       - name: Build Docker image
         working-directory: etcd
         env:
-          TAG: ${{ env.ETCD_TAG }}
+          TAG: ${{ env.ETCD_IMAGE }}
           BINARYDIR: ./bin
         run: |
           docker images
           ./scripts/build-docker.sh $ETCD_DOCKER_TAG
           docker images
-          docker save -o etcd-loong64.tar $(docker images ${{ env.ETCD_TAG }} --format "{{.ID}}")
+          docker save -o etcd-loong64.tar $(docker images ${{ env.ETCD_IMAGE }} --format "{{.ID}}")
           ls -lha
           tar -xOf etcd-loong64.tar index.json || tar -xOf etcd-loong64.tar manifest.json | jq
       - name: Upload container images
