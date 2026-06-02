@@ -198,11 +198,47 @@ jobs:
             echo "Signed: $file"
             gpg --verify "$file".asc "$file"
           done
-      - name: List Release files
-        run: find loong64-artifacts -type f
+      - name: Generate release body
+        run: |
+          BASE_URL="https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}"
+          cat > release-body.md <<BODYEOF
+          ## Artifacts
+
+          | File               | Download                                       |
+          |--------------------|------------------------------------------------|
+          | `etcd`             | [etcd]($BASE_URL/etcd)                         |
+          | `etcdctl`          | [etcdctl]($BASE_URL/etcdctl)                   |
+          | `etcdutl`          | [etcdutl]($BASE_URL/etcdutl)                   |
+          | `etcd-loong64.tar` | [etcd-loong64.tar]($BASE_URL/etcd-loong64.tar) |
+
+          Each file has a corresponding `.asc` detached GPG signature.
+
+          ## Docker image
+
+          ```
+          kubernetesloong64/etcd:${{ env.DOCKER_TAG }}
+          kubernetesloong64/etcd-loong64:${{ env.DOCKER_TAG }}-loong64
+          ```
+
+          Download and load the image:
+
+          ```shell
+          curl -LO $BASE_URL/etcd-loong64.tar
+          docker load -i etcd-loong64.tar
+          ```
+
+          ## Verify signatures
+
+          ```shell
+          gpg --keyserver keys.openpgp.org --recv-keys FCF8724722CCBF9F51B1FBE376532BE7E3013105
+          echo "FCF8724722CCBF9F51B1FBE376532BE7E3013105:6:" | gpg --import-ownertrust
+          gpg --verify <file>.asc <file>
+          ```
+          BODYEOF
       - name: Create Release
         uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda # v3.0.0
         with:
           name: ${{ github.ref_name }}
+          body_path: release-body.md
           files: |
             loong64-artifacts/**
