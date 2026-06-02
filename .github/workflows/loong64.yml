@@ -114,12 +114,19 @@ jobs:
           TAG: ${{ env.ETCD_IMAGE }}
           BINARYDIR: ./bin
         run: |
+          echo "=== Docker tag arg: $ETCD_DOCKER_TAG ==="
+          echo "=== Before build ==="
           docker images
           ./scripts/build-docker.sh $ETCD_DOCKER_TAG
+          echo "=== After build ==="
           docker images
-          docker save -o etcd-loong64.tar ${{ env.ETCD_IMAGE }}:$ETCD_DOCKER_TAG
-          ls -lha
-          tar -xOf etcd-loong64.tar index.json || tar -xOf etcd-loong64.tar manifest.json | jq
+          IMAGE_REF=$(docker images ${{ env.ETCD_IMAGE }} --format "{{.Repository}}:{{.Tag}}")
+          echo "=== Saving $IMAGE_REF ==="
+          docker save -o etcd-loong64.tar $IMAGE_REF
+          echo "=== Image tarball ==="
+          ls -lha etcd-loong64.tar
+          echo "=== Manifest ==="
+          tar -xOf etcd-loong64.tar repositories || tar -xOf etcd-loong64.tar manifest.json | jq
       - name: Upload container images
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
