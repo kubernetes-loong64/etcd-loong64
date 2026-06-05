@@ -64,18 +64,15 @@ jobs:
           fi
           echo "IS_STABLE=$IS_STABLE"
           echo "IS_STABLE=$IS_STABLE" >> ${GITHUB_OUTPUT}
-      - name: Clone etcd
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          repository: etcd-io/etcd
-          ref: ${{ env.ETCD_BRANCH }}
-          path: etcd
-      - name: ls
-        run: ls -lah
       - name: Install build tools
         run: |
           apt update
           apt install -y git make golang file jq
+      - name: Clone etcd
+        run: |
+          git clone --branch ${{ env.ETCD_BRANCH }} --depth 1 https://github.com/etcd-io/etcd.git etcd
+      - name: ls
+        run: ls -lah
       - name: Install Docker CLI
         run: |
           apt remove $(dpkg --get-selections docker.io docker-compose docker-doc podman-docker containerd runc | cut -f1)
