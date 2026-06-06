@@ -70,15 +70,22 @@ kubernetesloong64/etcd:v3.6.8-0                 # Standard tag with build metada
 kubernetesloong64/etcd-loong64:v3.6.8-0-loong64 # Tag with loong64 arch suffix
 ```
 
-## Verify releases
+## Verifying releases
 
 - Releases are signed with GPG.
 - Download the public key from [keys.openpgp.org](https://keys.openpgp.org).
-- [FCF8724722CCBF9F51B1FBE376532BE7E3013105](https://keys.openpgp.org/debug?q=FCF8724722CCBF9F51B1FBE376532BE7E3013105)
+- Fingerprint: [FCF8724722CCBF9F51B1FBE376532BE7E3013105](https://keys.openpgp.org/debug?q=FCF8724722CCBF9F51B1FBE376532BE7E3013105)
+- [Manual download](https://keys.openpgp.org/vks/v1/by-fingerprint/FCF8724722CCBF9F51B1FBE376532BE7E3013105)
 
 ```shell
 gpg --keyserver keys.openpgp.org --recv-keys FCF8724722CCBF9F51B1FBE376532BE7E3013105
 echo "FCF8724722CCBF9F51B1FBE376532BE7E3013105:6:" | gpg --import-ownertrust
+```
+
+Or download the key file manually and import it:
+
+```shell
+gpg --import /tmp/xxx
 ```
 
 Each release artifact has a corresponding `.asc` detached signature. To verify, download both the file and its `.asc`
